@@ -9,9 +9,16 @@ import SwiftUI
 
 @main
 struct PetScheduleApp: App {
+    @StateObject private var appCoordinator = AppCoordinator()
+    @StateObject private var coordinator = OnboardingCoordinator()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if appCoordinator.isOnboardingFinished {
+                ContentView()
+            } else {
+                OnboardCoordinatorView(coordinator: coordinator, appCoordinator: appCoordinator)
+            }
         }
     }
 }

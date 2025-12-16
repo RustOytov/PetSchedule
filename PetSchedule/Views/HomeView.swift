@@ -8,8 +8,20 @@
 import SwiftUI
 
 struct HomeView: View {
+    let viewModel: HomeVM
+    
     var body: some View {
-        Text("HomeView")
+        Button {
+            viewModel.showDetails()
+        } label: {
+            Text("Show details")
+        }
+        
+        Button {
+            viewModel.changeFeed()
+        } label: {
+            Text("change feed")
+        }
     }
 }
 

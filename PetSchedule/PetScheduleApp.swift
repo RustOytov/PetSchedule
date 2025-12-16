@@ -15,7 +15,7 @@ struct PetScheduleApp: App {
     var body: some Scene {
         WindowGroup {
             if appCoordinator.isOnboardingFinished {
-                ContentView()
+                TabBarCoordinatorView()
             } else {
                 OnboardCoordinatorView(coordinator: coordinator, appCoordinator: appCoordinator)
             }

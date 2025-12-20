@@ -18,5 +18,4 @@ struct ProfileOnboardView: View {
             Text("next")
         }
     }
-    
 }

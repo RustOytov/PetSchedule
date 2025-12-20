@@ -11,16 +11,21 @@ struct HomeView: View {
     let viewModel: HomeVM
     
     var body: some View {
-        Button {
-            viewModel.showDetails()
-        } label: {
-            Text("Show details")
+        VStack {
+            Button {
+                viewModel.showDetails()
+            } label: {
+                Text("Show details")
+            }
+            
+            Button {
+                viewModel.changeFeed()
+            } label: {
+                Text("change feed")
+            }
         }
-        
-        Button {
-            viewModel.changeFeed()
-        } label: {
-            Text("change feed")
+        .onAppear {
+            viewModel.getLocation()
         }
     }
 }

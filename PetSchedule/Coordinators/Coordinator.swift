@@ -9,4 +9,3 @@ import SwiftUI
 import Combine
 
 protocol Coordinator: ObservableObject {}
-

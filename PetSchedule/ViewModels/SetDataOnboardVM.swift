@@ -6,9 +6,15 @@
 //
 
 import Foundation
+import SwiftUI
+import SwiftData
+import Combine
 
-final class SetDataOnboardVM {
-
+class SetDataOnboardVM: ObservableObject {
+    @Published var dailyNorm: String = ""
+    @Published var numberOfMeals: String = ""
+    @Published var notification: Bool = false
+    private(set) var pet: Pet?
     let nextAction: () -> Void
 
     init(nextAction: @escaping () -> Void) {
@@ -17,5 +23,26 @@ final class SetDataOnboardVM {
 
     func nextTapped() {
         nextAction()
+    }
+    
+    @MainActor
+    func setData(pet: Pet, context: ModelContext) {
+        if let feed = pet.feed {
+            feed.numberOfMeals = Int(numberOfMeals) ?? feed.numberOfMeals
+            feed.dailyNorm = Int(dailyNorm) ?? feed.dailyNorm
+            feed.gramsPerServing =
+                feed.dailyNorm / max(feed.numberOfMeals, 1)
+        } else {
+            let feed = Feed(
+                numberOfMeals: Int(numberOfMeals) ?? 0,
+                dailyNorm: Int(dailyNorm) ?? 0,
+                gramsPerServing:
+                    (Int(dailyNorm) ?? 0) / max(Int(numberOfMeals) ?? 1, 1)
+            )
+            pet.owner?.notificationsIsOn = notification
+            pet.feed = feed
+            context.insert(feed)
+        }
+        nextTapped()
     }
 }

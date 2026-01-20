@@ -13,14 +13,22 @@ struct OnboardCoordinatorView: View {
     
     var body: some View {
         NavigationStack(path: $coordinator.path) {
-            WelcomeOnboardView(viewModel: WelcomeOnboardVM(nextAction: coordinator.goToSetDataView))
+            WelcomeOnboardView(viewModel: WelcomeOnboardVM(nextAction: coordinator.goToSetProfileView))
                 .navigationDestination(for: OnboardingRoute.self) { route in
                     switch route {
                     case .setdata:
-                        SetDataOnboardView(viewModel: SetDataOnboardVM(nextAction: coordinator.goToSetProfileView))
+                        SetDataOnboardView(
+                            viewModel: SetDataOnboardVM(
+                                nextAction: { appCoordinator.finishOnboarding() }
+                            )
+                        )
                         
                     case .profile:
-                        ProfileOnboardView(viewModel: ProfileOnboardVM(nextAction: { appCoordinator.finishOnboarding() }))
+                        ProfileOnboardView(
+                            viewModel: ProfileOnboardVM(
+                                nextAction: coordinator.goToSetDataView
+                            )
+                        )
                     }
                 }
         }

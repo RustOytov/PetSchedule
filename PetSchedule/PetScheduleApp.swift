@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct PetScheduleApp: App {
@@ -20,5 +21,6 @@ struct PetScheduleApp: App {
                 OnboardCoordinatorView(coordinator: coordinator, appCoordinator: appCoordinator)
             }
         }
+        .modelContainer(for: [User.self, Pet.self, Feed.self, Meal.self, Walk.self, Plan.self])
     }
 }

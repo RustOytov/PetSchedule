@@ -14,27 +14,53 @@ struct SetDataOnboardView: View {
     
     @Environment(\.modelContext) private var modelContext
     @Query() private var pets: [Pet]
+    @State var date: Date = .now
     
     var body: some View {
-        VStack {
-            Text(String(pets.first?.feed?.dailyNorm ?? 0))
-                .padding()
-            Text(String(pets.first?.feed?.gramsPerServing ?? 0))
+        ZStack {
+            Color.background
+                .ignoresSafeArea()
             
-            TextField("Input daily norm", text: $viewModel.dailyNorm)
-                .keyboardType(.numberPad)
-            TextField("Input number of meals", text: $viewModel.numberOfMeals)
-                .keyboardType(.numberPad)
-            Toggle("Notification", isOn: $viewModel.notification)
-            
-            Button {
-                if let pet = pets.first {
-                    viewModel.setData(pet: pet, context: modelContext)
+            VStack(spacing: 20) {
+                Spacer()
+                
+                Text("Let's fill out the meal schedule")
+                    .foregroundStyle(.text)
+                    .font(.alegreya(weight: .medium, size: 30))
+                
+                Image(.setFeedDog)
+                    .resizable()
+                    .scaledToFit()
+                
+                if !viewModel.allDataIsCorrect {
+                    Text("All fields must be filled in")
+                        .font(.alegreya(weight: .regular, size: 18))
+                        .foregroundStyle(.red)
                 }
                 
-            } label: {
-                Text("save data")
+                Resources.customTextField("Input daily norm", text: $viewModel.dailyNorm)
+                    .keyboardType(.numberPad)
+                
+                Resources.customTextField("Input number of meals", text: $viewModel.numberOfMeals)
+                    .keyboardType(.numberPad)
+                
+                HStack {
+                    Text("Notifications")
+                        .foregroundStyle(.text)
+                        .font(.alegreya(weight: .regular, size: 18))
+                        .padding(.leading, 8)
+                    Toggle("", isOn: $viewModel.notificationsIsOn)
+                }
+                
+            Resources.nextButton(text: "Save data", action: { viewModel.setData(pet: pets[0], context: modelContext)})
+                   
+                Spacer()
             }
+            .padding()
         }
     }
+}
+
+#Preview {
+    SetDataOnboardView(viewModel: SetDataOnboardVM(nextAction: { }))
 }

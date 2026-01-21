@@ -23,6 +23,11 @@ struct HomeView: View {
             } label: {
                 Text("change feed")
             }
+            Button {
+                viewModel.getWeatherTest()
+            } label: {
+                Text("get weather")
+            }
         }
         .onAppear {
             viewModel.getLocation()

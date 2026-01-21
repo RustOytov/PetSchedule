@@ -13,7 +13,10 @@ import Combine
 class SetDataOnboardVM: ObservableObject {
     @Published var dailyNorm: String = ""
     @Published var numberOfMeals: String = ""
-    @Published var notification: Bool = false
+    @Published var notificationsIsOn: Bool = false
+    @Published var allDataIsCorrect: Bool = true
+    @AppStorage("onboardingCompleted") var appOnboardingCompleted = false
+
     private(set) var pet: Pet?
     let nextAction: () -> Void
 
@@ -22,11 +25,22 @@ class SetDataOnboardVM: ObservableObject {
     }
 
     func nextTapped() {
+        appOnboardingCompleted = true
         nextAction()
+    }
+    
+    func checkAllParametrs() -> Bool {
+        if dailyNorm.isEmpty || numberOfMeals.isEmpty {
+            allDataIsCorrect = false
+            return false
+        }
+        return true
     }
     
     @MainActor
     func setData(pet: Pet, context: ModelContext) {
+        guard checkAllParametrs() else { return }
+        
         if let feed = pet.feed {
             feed.numberOfMeals = Int(numberOfMeals) ?? feed.numberOfMeals
             feed.dailyNorm = Int(dailyNorm) ?? feed.dailyNorm
@@ -39,7 +53,7 @@ class SetDataOnboardVM: ObservableObject {
                 gramsPerServing:
                     (Int(dailyNorm) ?? 0) / max(Int(numberOfMeals) ?? 1, 1)
             )
-            pet.owner?.notificationsIsOn = notification
+            pet.owner?.notificationsIsOn = notificationsIsOn
             pet.feed = feed
             context.insert(feed)
         }

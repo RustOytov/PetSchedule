@@ -12,9 +12,11 @@ import SwiftData
 class ProfileOnboardVM: ObservableObject {
     @Published var name: String = ""
     @Published var nickname: String = ""
-    @Published var age: String = ""
     @Published var breed: String = ""
+    @Published var age: String = ""
     @Published var weight: String = ""
+    @Published var allDataIsCorrect = true
+    
     
     let nextAction: () -> Void
     
@@ -26,7 +28,16 @@ class ProfileOnboardVM: ObservableObject {
         nextAction()
     }
     
+    func checkAllParametrs() -> Bool {
+        if name.isEmpty || nickname.isEmpty || breed.isEmpty || age.isEmpty || weight.isEmpty {
+            allDataIsCorrect = false
+            return false
+        }
+        return true
+    }
+    
     func setData(context: ModelContext) {
+        guard checkAllParametrs() else { return }
         print("context = \(context)")
         print("name = \(name)")
         let user = User(name: name, createdAt: .now, notificationsIsOn: false)

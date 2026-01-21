@@ -12,10 +12,11 @@ import SwiftData
 struct PetScheduleApp: App {
     @StateObject private var appCoordinator = AppCoordinator()
     @StateObject private var coordinator = OnboardingCoordinator()
+    @AppStorage("onboardingCompleted") var appOnboardingCompleted = false
     
     var body: some Scene {
         WindowGroup {
-            if appCoordinator.isOnboardingFinished {
+            if appOnboardingCompleted {
                 TabBarCoordinatorView()
             } else {
                 OnboardCoordinatorView(coordinator: coordinator, appCoordinator: appCoordinator)

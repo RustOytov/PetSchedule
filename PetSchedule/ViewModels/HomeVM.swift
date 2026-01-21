@@ -12,6 +12,10 @@ import CoreLocation
 
 class HomeVM {
     @Published var locationManager = LocationManager()
+    @AppStorage("appLatitude") var appLatitude = 0.0
+    @AppStorage("appLongitude") var appLongitude = 0.0
+    let api = OpenMeteoAPI()
+    
     let changeFeed: () -> Void
     let showDetails: () -> Void
     
@@ -30,12 +34,21 @@ class HomeVM {
     func changeFeedTapped() {
         changeFeed()
     }
+    func getWeatherTest() {
+        Task {
+            do {
+                let res = try await api.fetchWeather()
+            } catch {
+                print("error \(error)")
+            }
+        }
+    }
 
     func getLocation() {
         locationManager.requestLocation()
         if let location = locationManager.location {
-            print(location.coordinate.latitude)
-            print(location.coordinate.longitude)
+            appLatitude = location.coordinate.latitude
+            appLongitude = location.coordinate.longitude
         }
     }
 }

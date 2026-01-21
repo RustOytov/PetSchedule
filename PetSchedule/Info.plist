@@ -2,44 +2,35 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    
-    <key>UILaunchStoryboardName</key>
-    <string>LaunchScreen</string>
-
-    <!-- App identity -->
-    <key>CFBundleName</key>
-    <string>PetSchedule</string>
-
-    <key>CFBundleDisplayName</key>
-    <string>PetSchedule</string>
-
-    <key>CFBundleIdentifier</key>
-    <string>pet.PetSchedule</string>
-
-    <!-- Versioning -->
-    <key>CFBundleShortVersionString</key>
-    <string>$(MARKETING_VERSION)</string>
-
-    <key>CFBundleVersion</key>
-    <string>$(CURRENT_PROJECT_VERSION)</string>
-
-    <!-- Executable -->
-    <key>CFBundleExecutable</key>
-    <string>$(EXECUTABLE_NAME)</string>
-
-    <key>CFBundlePackageType</key>
-    <string>APPL</string>
-
-    <!-- SwiftUI lifecycle -->
-    <key>UIApplicationSceneManifest</key>
-    <dict>
-        <key>UIApplicationSupportsMultipleScenes</key>
-        <false/>
-    </dict>
-
-    <!-- Privacy -->
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>Приложению нужно ваше местоположение для получения прогноза погоды</string>
-
+	<key>UIAppFonts</key>
+	<array>
+		<string>AlegreyaSC-Black.ttf</string>
+		<string>AlegreyaSC-Bold.ttf</string>
+		<string>AlegreyaSC-Medium.ttf</string>
+		<string>AlegreyaSC-Regular.ttf</string>
+	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>CFBundleName</key>
+	<string>PetSchedule</string>
+	<key>CFBundleDisplayName</key>
+	<string>PetSchedule</string>
+	<key>CFBundleIdentifier</key>
+	<string>pet.PetSchedule</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Приложению нужно ваше местоположение для получения прогноза погоды</string>
 </dict>
 </plist>
